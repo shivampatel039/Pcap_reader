@@ -25,7 +25,7 @@ public class Main {
 		try {
 			writeCsvHeader();
 			
-			fileInputStream = new FileInputStream(new File("/Users/shivam/Meng project/iec_61850_reader/IEC61850_write_messages-01.pcap"));
+			fileInputStream = new FileInputStream(new File("/Users/shivam/Meng project/iec_reader/IEC61850_write_messages-01.pcap"));
 			System.out.println("Input File: " + fileInputStream);
 			
 			GlobalHeaderReader globalHeaderReader = new GlobalHeaderReader(fileInputStream);
@@ -150,9 +150,11 @@ public class Main {
 					int propDataStructNestLevel = packetInitreqObj.getpropDataStructNestLevel();
 					int propVerNo = packetInitreqObj.getpropVerNo();
 					int propParamCBB = packetInitreqObj.getpropParamCBB();
-					String CBBparam = Integer.toHexString(propParamCBB);           
+					String CBBparam = Integer.toHexString(propParamCBB);   
+					byte[] zerob = {0};
 					
-					CsvDataCollector packet1 = new CsvDataCollector(ipv4_source, ipv4_dest, tcp_sourceport, tcp_destport);
+					CsvDataCollector packet1 = new CsvDataCollector(ipv4_source, ipv4_dest, tcp_sourceport, tcp_destport,LocalDetailCalling,
+							propMaxServOutCalling,propMaxServOutCalled,propDataStructNestLevel,propVerNo,CBBparam);
 					
 					writepackets(packet1);
 					
@@ -187,9 +189,13 @@ public class Main {
 					int invokeID = packetConfirmReqObj.getinvokeID();
 					int ReqType = packetConfirmReqObj.getReqType();
 					String req = Integer.toHexString(ReqType);
+					int zero = 0;
+					String zeroS = String.valueOf(0);
+					byte[] zerob = {0};
+
 
 					//FileWriter filewriter2 = new FileWriter("/Users/shivam/Extracted_data2.csv");
-					CsvDataCollector packet2 = new CsvDataCollector(ipv4_source, ipv4_dest, tcp_sourceport, tcp_destport);
+					CsvDataCollector packet2 = new CsvDataCollector(ipv4_source, ipv4_dest, tcp_sourceport, tcp_destport,zero,zero,zero,zero,zero,zeroS);
 					
 					writepackets(packet2);
 					//filewriter2.close();
@@ -209,14 +215,16 @@ public class Main {
 					int invokeID = packetConfirmRespObj.getinvokeID();
 					int RespType = packetConfirmRespObj.getRespType();
 					String respType = Integer.toHexString(RespType);
-					
+					int zero = 0;
+					String zeroS = String.valueOf(0);
+					byte[] zerob = {0};
 
 					System.out.printf("\"%d\",\"%d.%d.%d.%d\",\"%d.%d.%d.%d\",\"%d\",\"%d\",\"%d\",\"%s\"\n",num, ipv4_source[0], ipv4_source[1], ipv4_source[2], ipv4_source[3],
 							ipv4_dest[0], ipv4_dest[1], ipv4_dest[2], ipv4_dest[3], tcp_sourceport, tcp_destport,invokeID, respType);
 					
 					
 	
-					CsvDataCollector packet3 = new CsvDataCollector(ipv4_source, ipv4_dest, tcp_sourceport, tcp_destport);
+					CsvDataCollector packet3 = new CsvDataCollector(ipv4_source, ipv4_dest, tcp_sourceport, tcp_destport,zero,zero,zero,zero,zero,zeroS);
 					writepackets(packet3);
 					
 
@@ -250,7 +258,7 @@ public class Main {
 	private static void writeCsvHeader() {
 		try {
 			FileWriter fileWriter = new FileWriter("/Users/shivam/data1.csv");
-			fileWriter.append("\"sourceIP\",\"DestIP\",\"SourcePort\",\"destPort\"");
+			fileWriter.append("\"sourceIP\",\"DestIP\",\"SourcePort\",\"destPort\",\"LocalDetailCalling\",\"propMaxServOutCalling\",\"propMaxServOutCalled\",\"propDataStructNestLevel\",\"propVerNo\",\"propParamCBB\",\"ServSupportCalling\"");
 			fileWriter.append("\n");
 			fileWriter.flush();
 			fileWriter.close();
