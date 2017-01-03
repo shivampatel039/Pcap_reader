@@ -2,23 +2,23 @@ package org.uvic.ece.pcap.obj;
 
 public class CsvDataCollector {
 	
-	private int[] sourceIP;
-	private int[] destIP;
-	private int   sourcePort;
-	private int   destPort;
+	private int[] 	  sourceIP;
+	private int[] 	  destIP;
+	private int   	  sourcePort;
+	private int   	  destPort;
 	private int       LocalDetailCalling;
 	private int 	  propMaxServOutCalling;
 	private int       propMaxServOutCalled;
 	private int       propDataStructNestLevel;
 	private int       propVerNo;
 	private String	  propParamCBB;
+	private int 	  Confirm_req_type;
+	private int       Confirm_resp_type;
 	
-	
-	
-	
+
 	public CsvDataCollector(int[] sourceIP, int[] destIP, int sourcePort,int destPort,int LocalDetailCalling,
 							int propMaxServOutCalling,int propMaxServOutCalled,int propDataStructNestLevel,
-							int propVerNo,String propParamCBB){
+							int propVerNo,String propParamCBB, int Confirm_req_type,int Confirm_resp_type){
 		this.sourceIP = sourceIP;
 		this.destIP = destIP;
 		this.sourcePort = sourcePort;
@@ -29,6 +29,8 @@ public class CsvDataCollector {
 		this.propDataStructNestLevel = propDataStructNestLevel;
 		this.propVerNo = propVerNo;
 		this.propParamCBB = propParamCBB;
+		this.Confirm_req_type = Confirm_req_type;
+		this.Confirm_resp_type = Confirm_resp_type;
 		
 	}
 	
@@ -112,10 +114,26 @@ public class CsvDataCollector {
         this.propVerNo = propVerNo;
     }
     
+    public int getConfirm_req_type() {
+		return Confirm_req_type;
+	}
+
+	public void setConfirm_req_type(int Confirm_req_type) {
+		this.Confirm_req_type = Confirm_req_type;
+	}
+
+	public int getConfirm_resp_type() {
+		return Confirm_resp_type;
+	}
+
+	public void setConfirm_resp_type(int Confirm_resp_type) {
+		this.Confirm_resp_type = Confirm_resp_type;
+	}
+    
     public String toString() {
     	return  "\""+ sourceIP[0] + "."+ sourceIP[1] + "." + sourceIP[2] + "." + sourceIP[3] +"\""+ "," +"\""+ destIP[0] + "." + destIP[1] + "."+ destIP[2] + "."+ destIP[3] +"\""+ ","
     			+ "\""+ sourcePort + "\""+"," + "\""+destPort+"\""+","+ "\""+LocalDetailCalling + "\""+ "," + "\""+propMaxServOutCalling+ "\""+ ","+ "\""+propMaxServOutCalled + "\""+ "," 
-    			+ "\""+ propDataStructNestLevel + "\""+ "," + "\""+ propVerNo+ "\""+ "," + "\""+ propParamCBB + "\"";
+    			+ "\""+ propDataStructNestLevel + "\""+ "," + "\""+ propVerNo+ "\""+ "," + "\""+ propParamCBB + "\""+ ","+"\""+ Confirm_req_type+ "\""+","+"\""+ Confirm_resp_type + "\"";
     } 
 	
 	
